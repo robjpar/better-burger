@@ -39,6 +39,7 @@ $(() => {
     event.preventDefault();
     const customerName = $('#customer-input').val();
     const newCustomer = {
+    if (customerName === '') return;
       name: customerName
     };
     $.post('/api/customers', newCustomer, (results) => {
