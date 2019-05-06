@@ -12,17 +12,22 @@
 
       <div class="row">
 
-        <div class="col-sm-12 col-md-4">
-          <div class="mt-sm-0 mb-sm-3 mt-md-3" id="burger-img"></div>
+        <div class="col-sm-12 col-md-5">
+          <div class="mt-sm-0 mb-sm-3 mt-md-5" id="burger-img"></div>
         </div>
 
-        <div class="col-sm-12 col-md-8">
+        <div class="col-sm-12 col-md-7">
           <form>
             <div class="form-group mb-3">
               <label for="burger-select">
-                <h3>Pick your burger!</h3>
+                <h3>Pick a burger</h3>
               </label>
               <select class="form-control form-control-lg" id="burger-select"></select>
+              <label for="customer-input" class="mt-4">
+                <h3>Customer name</h3>
+              </label>
+              <input type="text" class="form-control form-control-lg" id="customer-input"
+                placeholder="Customer name (required)">
             </div>
             <button class="btn btn-primary btn-lg my-3" id="order-button">Place Order</button>
           </form>
@@ -48,10 +53,11 @@
 
           <div class="card mb-1">
             <h2>{{burger_name}}</h2>
-            <p>Ordered on {{ordered_at}}</p>
+            <p>Ordered on {{createdAt}}</p>
+            <p>Ordered by {{Customer.name}}</p>
             <div class="btn-group btn-group-sm">
-              <button class="deliver-button btn btn-success m-1" data-id="{{burger_id}}">Deliver Order</button>
-              <button class="cancel-button btn btn-danger m-1" data-id="{{burger_id}}">Cancel Order</button>
+              <button class="deliver-button btn btn-success m-1" data-id="{{id}}">Mark Delivered</button>
+              <button class="cancel-button btn btn-danger m-1" data-id="{{id}}">Cancel Order</button>
             </div>
           </div>
 
@@ -75,8 +81,9 @@
 
           <div class="card mb-1">
             <h2>{{burger_name}}</h2>
-            <p>Delivered on {{delivered_at}}</p>
-            <button class="delete-button btn btn-outline-danger m-1" data-id="{{burger_id}}">Delete</button>
+            <p>Delivered on {{updatedAt}}</p>
+            <p>Ordered by {{Customer.name}}</p>
+            <button class="delete-button btn btn-outline-danger m-1" data-id="{{id}}">Delete</button>
           </div>
 
           {{/if}}
@@ -91,7 +98,10 @@
   <!-- Footer -->
   <footer class="card bg-secondary mb-2">
     <div class="card-body">
-      <p class="m-0"><a href="/api/burgers" class="text-white">Burger API</a></p>
+      <p class="m-0">
+        <a href="/api/burgers" class="text-white">Burger API</a>
+        <a href="/api/customers" class="text-white">Customer API</a>
+      </p>
     </div>
   </footer>
 

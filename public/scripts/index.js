@@ -26,27 +26,40 @@ $(() => {
 
   // Display the initial burger picture
   const index = parseInt($('#burger-select').find(':selected').data('index'));
-  $('#burger-img').html(`<img src="${burgers[index].img}" alt="${burgers[index].name}" width="200">`);
+  $('#burger-img').html(`<img src="${burgers[index].img}" alt="${burgers[index].name}" width="250">`);
 
   // Update the burger picture according to the option selected
   $('#burger-select').change(() => {
     const index = parseInt($('#burger-select').find(':selected').data('index'));
-    $('#burger-img').html(`<img src="${burgers[index].img}" alt="${burgers[index].name}" width="200">`);
+    $('#burger-img').html(`<img src="${burgers[index].img}" alt="${burgers[index].name}" width="250">`);
   });
 
   // Functionality of the "Place Order" button
   $('#order-button').click(() => {
-    const newBurger = {
-      burgerName: $('#burger-select').val()
+    const burgerName = $('#burger-select').val();
+    const customerName = $('#customer-input').val();
+    newCustomer = {
+      name: customerName
     };
-    $.post('/api/burgers', newBurger, () => location.reload());
+    $.post('/api/customers', newCustomer, (results) => {
+      const newBurger = {
+        burger_name: burgerName,
+        CustomerId: results.id
+      };
+      $.post('/api/burgers', newBurger, () => location.reload());
+    });
+
   });
 
   // Functionality of the "Deliver Order" button
   $('.deliver-button').click(function() {
     const burgerId = $(this).data('id');
+    const updBurger = {
+      delivered: true
+    };
     $.ajax(`/api/burgers/${burgerId}`, {
-      type: 'PUT'
+      type: 'PUT',
+      data: updBurger
     }).then(() => location.reload());
   });
 
