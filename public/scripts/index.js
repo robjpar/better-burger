@@ -75,7 +75,8 @@ $(() => {
   });
 
   // Functionality of the "Delete" button
-  $('.delete-button').click(function() {
+  $('.delete-button').click(function(event) {
+    event.preventDefault();
     const burgerId = $(this).data('id');
     $.ajax(`/api/burgers/${burgerId}`, {
       type: 'DELETE'
