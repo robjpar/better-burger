@@ -36,12 +36,12 @@ $(() => {
 
   // Functionality of the "Place Order" button
   $('#order-button').click(() => {
-    const burgerName = $('#burger-select').val();
     const customerName = $('#customer-input').val();
-    newCustomer = {
+    const newCustomer = {
       name: customerName
     };
     $.post('/api/customers', newCustomer, (results) => {
+      const burgerName = $('#burger-select').val();
       const newBurger = {
         burger_name: burgerName,
         CustomerId: results.id
