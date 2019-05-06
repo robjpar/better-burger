@@ -37,20 +37,14 @@ $(() => {
   // Functionality of the "Place Order" button
   $('#order-button').click(function(event) {
     event.preventDefault();
+    const burgerName = $('#burger-select').val();
     const customerName = $('#customer-input').val();
-    const newCustomer = {
     if (customerName === '') return;
+    const newOrder = {
+      burger_name: burgerName,
       name: customerName
     };
-    $.post('/api/customers', newCustomer, (results) => {
-      const burgerName = $('#burger-select').val();
-      const newBurger = {
-        burger_name: burgerName,
-        CustomerId: results.id
-      };
-      $.post('/api/burgers', newBurger, () => location.reload());
-    });
-
+    $.post('/api/order', newOrder, () => location.reload());
   });
 
   // Functionality of the "Deliver Order" button
