@@ -27,12 +27,6 @@ module.exports = function(app) {
     });
   });
 
-  app.post("/api/burgers", function(req, res) {
-    db.Burger.create(req.body).then(function(results) {
-      res.json(results);
-    });
-  });
-
   app.put("/api/burgers/:id", function(req, res) {
     db.Burger.update(req.body, {
       where: {
@@ -57,15 +51,6 @@ module.exports = function(app) {
     db.Customer.findAll({
       include: [db.Burger]
     }).then(function(results) {
-      res.json(results);
-    });
-  });
-
-  app.post("/api/customers", function(req, res) {
-    // Create a new customer if not exist, otherwise update
-    db.Customer.findOrCreate({
-      where: req.body
-    }).then(function([results, created]) {
       res.json(results);
     });
   });
