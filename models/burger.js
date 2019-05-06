@@ -1,38 +1,26 @@
-const orm = require('../config/orm.js');
+module.exports = function(sequelize, DataTypes) {
+  const Burger = sequelize.define("Burger", {
+    burger_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
+    delivered: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    }
+  });
 
-// Definition of the Model
-const burgers = {
-  selectAll: (cb) => {
-    orm.selectAll('burgers', 'delivered_at', 'ordered_at', (results) => cb(results));
-  },
-  insertOne: (burger_name, cb) => {
-    orm.insertOne('burgers', 'burger_name', burger_name, (results) =>
-      cb(results));
-  },
-  updateOne: (deliveredBool, burger_id, cb) => {
-    let boolNumber = 0; // false
-    if (deliveredBool) boolNumber = 1; // true
-    orm.updateOne('burgers', 'delivered', boolNumber, 'burger_id', burger_id,
-      (results) => cb(results));
-  },
-  deleteOne: (burger_id, cb) => {
-    orm.deleteOne('burgers', 'burger_id', burger_id, (results) => cb(results));
-  }
-};
-
-module.exports = burgers;
-
-// Testing...
-if (require.main === module) {
-  const printCb = (results) => {
-    console.log(results);
+  Burger.associate = function(models) {
+    Burger.belongsTo(models.Customer, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
 
-  burgers.selectAll(printCb);
-
-  burgers.insertOne('Double Cheeseburger', printCb);
-
-  burgers.updateOne(true, 13, printCb);
-
-  burgers.deleteOne(15, printCb);
-}
+  return Burger;
+};
