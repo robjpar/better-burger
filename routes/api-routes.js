@@ -1,6 +1,24 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  app.post("/api/order", function(req, res) {
+    const newCustomer = {
+      name: req.body.name
+    };
+    // Find the customer if exists, otherwise create a new one
+    db.Customer.findOrCreate({
+      where: newCustomer
+    }).then(function([results, created]) {
+      const newBurger = {
+        burger_name: req.body.burger_name,
+        CustomerId: results.id
+      };
+      db.Burger.create(newBurger).then(function(results2) {
+        res.json(results2);
+      });
+    });
+  });
+
   app.get("/api/burgers", function(req, res) {
     db.Burger.findAll({
       include: [db.Customer]
