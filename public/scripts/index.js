@@ -35,7 +35,8 @@ $(() => {
   });
 
   // Functionality of the "Place Order" button
-  $('#order-button').click(() => {
+  $('#order-button').click(function(event) {
+    event.preventDefault();
     const customerName = $('#customer-input').val();
     const newCustomer = {
       name: customerName
@@ -52,7 +53,8 @@ $(() => {
   });
 
   // Functionality of the "Deliver Order" button
-  $('.deliver-button').click(function() {
+  $('.deliver-button').click(function(event) {
+    event.preventDefault();
     const burgerId = $(this).data('id');
     const updBurger = {
       delivered: true
@@ -64,7 +66,8 @@ $(() => {
   });
 
   // Functionality of the "Cancel Order" button
-  $('.cancel-button').click(function() {
+  $('.cancel-button').click(function(event) {
+    event.preventDefault();
     const burgerId = $(this).data('id');
     $.ajax(`/api/burgers/${burgerId}`, {
       type: 'DELETE'
