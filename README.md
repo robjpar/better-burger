@@ -10,6 +10,7 @@ Better Burger is a web application which keeps record of ordered and deliverer b
 - Browse placed and delivered orders
 - Mark the order as delivered or cancel the order
 - Delete the delivered order
+- Access the stored info through the Burger API and Customer API
 - Mobile responsive design
 
 ## Technologies & Frameworks
